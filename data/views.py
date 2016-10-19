@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Siniestro
+from .models import Siniestro,Victima
 from .forms import SiniestroForm, VictimaForm, VictimaFormSet
 
 
@@ -37,3 +37,9 @@ def alta_victima(request, id_siniestro):
 			victima.save()
 			return redirect('alta-victima', id_siniestro=siniestro.id) 
 	return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Victima', 'siniestro': siniestro})
+
+def tablero(request):
+	victima=Victima.objects.all()
+	return render(request,"tablasiniestro.html",
+		{'victima':victima
+		})

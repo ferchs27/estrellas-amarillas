@@ -22,6 +22,9 @@ class Siniestro(models.Model):
     referencias_prensa = models.ManyToManyField('ReferenciaPrensa')
     cargado_por = models.ForeignKey('auth.User', editable=False, null=True)
 
+    def __str__(self):
+        return "{} ({})".format(self.causa_principal, self.get_provincia_display())
+
 
 class Causa(models.Model):
     causa = models.CharField(max_length=50)
@@ -42,6 +45,9 @@ class Victima(models.Model):
     genero = models.CharField(max_length=30, choices=GENEROS)
     fecha_nacimiento = models.DateField(null=True)
     fotos = models.ManyToManyField('ReferenciaPrensa')
+
+    def __str__(self):
+        return "{} ({}) ({}) ({})".format(self.siniestro, self.apellido,self.nombres, self.genero)
 
 
 class ReferenciaPrensa(models.Model):
